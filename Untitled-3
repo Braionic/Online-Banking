@@ -1,0 +1,16 @@
+if (empty($_POST['order_id']) === false) {
+    // prepare data for inserting 
+    $order_id = htmlentities(trim($_POST['order_id']));
+    $order_id = preg_replace("/[^0-9]/","", $order_id);
+
+    $result = mysqli_query($con,"SELECT * FROM listings WHERE order_id = $order_id");
+    $row    = mysqli_fetch_assoc($result);
+    if($order_id === $row['order_id']) {
+    echo "<script type='text/javascript'> document.location = 'panel.php'; </script>"; 
+             //   header('Location: panel.php');
+} else {
+    echo "<script type='text/javascript'> document.location = 'index.php?login_error=wrong'; </script>"; 
+              //  header('Location: verifyotp.php?otp_error=wrong');
+}
+
+}
